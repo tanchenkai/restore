@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="my_mesh">
+      <pose>1 1 0.05  0 0 0</pose>
+      <static>true</static>
+      <link name="body">
+        <visual name="visual">
+          <geometry>
+            <mesh><uri>file://model.dae</uri></mesh>
+          </geometry>
+	  <material>
+             <ambient>1 0.753 0.7961 1</ambient>	
+	  </material>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

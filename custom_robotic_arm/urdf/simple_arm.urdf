@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+<robot name="rrbot">
+  <link name="world"/>
+      <link name="cat">
+        <visual name="visual">
+          <geometry>
+            <mesh filename="model.dae" />
+          </geometry>
+	  <origin rpy="0 0 0" xyz="0 0 0"/>
+	  <material name="silver">
+             <color rgba="1 0.753 0.7961 1"/>	
+	  </material>
+        </visual>
+    <collision>
+          <geometry>
+            <mesh filename="model.dae" />
+          </geometry>
+	  <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <inertia ixx="0.0027" iyy="0.0027" izz="0.005" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+      </link>
+  <joint name="cat_fixed" type="fixed">
+    <parent link="world"/>
+    <child link="cat"/>
+    <origin rpy="0 0 0" xyz="0.5 0.5 0.05"/>
+  </joint>
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.05" radius="0.1"/>
+            </geometry>
+            <material name="silver">
+                <color rgba="0.75 0.75 0.75 1"/>
+            </material>
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+        </visual>
+    <collision>
+        <geometry>
+            <cylinder length="0.05" radius="0.1"/>
+        </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.025"/>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <origin rpy="0 0 0" xyz="0 0 0.025"/>
+        <inertia ixx="0.0027" iyy="0.0027" izz="0.005" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    </link>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <link name="One">
+    <visual>
+        <geometry>
+            <cylinder length="0.5" radius="0.05"/>
+        </geometry>
+        <material name="silver">
+            <color rgba="0.75 0.75 0.75 1"/>
+        </material>
+        <origin rpy="0 0 0" xyz="0 0 0.25"/>
+    </visual>
+    <collision>
+        <geometry>
+            <cylinder length="0.5" radius="0.05"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.25"/>
+    </collision>
+    <inertial>
+        <mass value="1.0"/>
+        <origin rpy="0 0 0" xyz="0 0 0.25"/>
+        <inertia ixx="0.02146" iyy="0.02146" izz="0.00125"
+        ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+
+  </link>
+  
+  <joint name="One_joint" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="base_link"/>
+    <child link="One"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
+  </joint>
+
+  <link name="Two">
+<visual>
+<geometry>
+<cylinder length="0.4" radius="0.05"/>
+</geometry>
+<material name="silver"/>
+<origin rpy="0 0 0" xyz="0 0 0.2"/>
+</visual>
+<collision>
+ <geometry>
+<cylinder length="0.4" radius="0.05"/>
+</geometry>
+<origin rpy="0 0 0" xyz="0 0 0.2"/> 
+</collision>
+<inertial>
+<mass value="1.0"/>
+<origin rpy="0 0 0" xyz="0 0 0.2"/>
+<inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
+</inertial>
+</link>
+<joint name="Two_joint" type="continuous">
+<axis xyz="0 1 0"/>
+<parent link="One"/>
+<child link="Two"/>
+<origin rpy="0 1.5708 0" xyz="0.0 -0.1 0.45"/>
+</joint>
+
+<link name="Three">
+<visual>
+<geometry>
+<cylinder length="0.4" radius="0.05"/>
+</geometry>
+<material name="silver"/>
+<origin rpy="0 0 0" xyz="0 0 0.2"/>
+</visual>
+<collision>
+ <geometry>
+<cylinder length="0.4" radius="0.05"/>
+</geometry>
+<origin rpy="0 0 0" xyz="0 0 0.2"/> 
+</collision>
+<inertial>
+<mass value="1.0"/>
+<origin rpy="0 0 0" xyz="0 0 0.2"/>
+<inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
+</inertial>
+</link>
+<joint name="Three_joint" type="continuous">
+<axis xyz="0 1 0"/>
+<parent link="Two"/>
+<child link="Three"/>
+<origin rpy="0 0 0" xyz="0.0 0.1 0.35"/>
+</joint>
+
+<link name="Four">
+<visual>
+<geometry>
+<box size="0.05 0.05 0.05"/>
+</geometry>
+<material name="silver"/>
+</visual>
+<collision>
+  <geometry>
+<box size="0.05 0.05 0.05"/>
+</geometry>
+</collision>
+<inertial>
+<mass value="1.0"/>
+<inertia ixx="0.00042" iyy="0.00042" izz="0.00042"
+ixy="0" ixz="0" iyz="0"/>
+</inertial>
+</link>
+<joint name="Four_joint" type="continuous">
+<axis xyz="0 1 0"/>
+<parent link="Three"/>
+<child link="Four"/>
+<origin rpy="0 0 0" xyz="0.0 0.0 0.425"/>
+</joint>
+
+<!-- Camera -->
+<link name="camera_link">
+<collision>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<geometry>
+<box size="0.05 0.05 0.05"/>
+</geometry>
+</collision>
+
+<visual>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<geometry>
+<box size="0.05 0.05 0.05"/>
+</geometry>
+<material name="red"/>
+</visual>
+
+<inertial>
+<mass value="1e-5" />
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+</inertial>
+</link>
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="Four"/>
+    <child link="camera_link"/>
+  </joint>
+
+<!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
+so that ros and opencv can operate on the camera frame correctly -->
+<joint name="camera_optical_joint" type="fixed">
+<!-- these values have to be these values otherwise the gazebo camera image
+won't be aligned properly with the frame it is supposedly originating from -->
+<origin xyz="0 0 0" rpy="-1.5709 0 -1.5709"/>
+<parent link="camera_link"/>
+<child link="camera_link_optical"/>
+</joint>
+
+<link name="camera_link_optical">
+</link>
+
+                    <!--TRANSMISSION-->
+<!--ONE-->
+<transmission name ="Trans_1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="One_joint">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Motor1">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+<!--Two-->
+<transmission name ="Trans_2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Two_joint">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Motor2">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+<!--Three-->
+<transmission name ="Trans_3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Three_joint">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Motor3">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+
+<!--Four-->
+<transmission name="Trans_4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Four_joint">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Motor4">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+
+
+<gazebo>
+    <plugin name="control" filename="libgazebo_ros_control.so"/>
+</gazebo>
+<gazebo>
+<plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+        <jointName>One_joint, Two_joint, Three_joint, Four_joint</jointName>
+    </plugin>
+</gazebo>
+
+  <!-- camera_link -->
+  <gazebo reference="camera_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <!-- camera -->
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>rrbot/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link_optical</frameName>
+        <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
+            between the gazebo sensor image and the frame it is supposed to
+            be attached to -->
+        <hackBaseline>0.0</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+        <CxPrime>0</CxPrime>
+        <Cx>325.26</Cx>
+        <Cy>242.49</Cy>
+        <focalLength>573.57</focalLength>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+</robot>
